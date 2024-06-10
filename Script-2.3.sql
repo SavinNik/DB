@@ -16,9 +16,14 @@ GROUP BY a.album_name
 
 SELECT DISTINCT p.performer_name 
 FROM performer p 
-JOIN performer_album pa ON p.id = pa.performer_id
-JOIN album a ON a.id = pa.album_id 
-WHERE a.release_year < 2020;
+WHERE p.performer_name NOT IN (
+SELECT DISTINCT p.performer_name 
+FROM performer p
+LEFT JOIN performer_album pa ON p.id = pa.performer_id
+LEFT JOIN album a ON a.id = pa.album_id
+WHERE a.release_year = 2020
+)
+ORDER BY p.performer_name;
 
 SELECT c.collection_name 
 FROM collection c 
