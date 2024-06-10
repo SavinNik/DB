@@ -1,7 +1,7 @@
 SELECT track_name, duration 
-  FROM track t 
-ORDER BY duration DESC 
-LIMIT 1;
+  FROM track t
+ WHERE duration = (SELECT max(duration) FROM track)
+ORDER BY duration DESC;
 
 SELECT track_name 
   FROM track t
